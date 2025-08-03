@@ -16,20 +16,73 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* Subtle background pattern for a more premium feel */
             background-color: #f3f4f6;
             background-image: radial-gradient(#d1d5db 1px, transparent 1px);
             background-size: 20px 20px;
         }
-        .form-input {
-            @apply w-full px-4 py-3 text-gray-900 bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300;
-        }
+        
+        /* --- NEW: Traditional CSS Form Styles --- */
         .form-label {
-            @apply block text-sm font-semibold text-gray-600 mb-2;
+            display: block;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 600; /* font-semibold */
+            color: #4b5563; /* text-gray-600 */
+            margin-bottom: 0.5rem; /* mb-2 */
         }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem; /* py-3 px-4 */
+            color: #111827; /* text-gray-900 */
+            background-color: #f9fafb; /* bg-gray-50 */
+            border-width: 2px;
+            border-color: #d1d5db; /* border-gray-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: all 0.3s ease-in-out;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6; /* focus:ring-blue-500 */
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4); /* focus:ring-2 */
+        }
+
         .btn-primary {
-            @apply inline-block px-12 py-3 font-bold text-white bg-blue-600 rounded-xl shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:brightness-110;
+            display: inline-block;
+            padding: 0.75rem 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            background-color: #2563eb;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            cursor: pointer;
+            border: none;
+            transition: all 0.5s;
         }
+        .btn-primary span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+        .btn-primary span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .btn-primary:hover span {
+            padding-right: 25px;
+        }
+        .btn-primary:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
         /* Hide arrows from number input */
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
@@ -59,22 +112,23 @@
                     <h2 class="text-xl font-bold text-gray-700">UPCAT Subtest Scores</h2>
                     <p class="text-xs text-gray-500 italic" title="Right minus one-fourth of wrong answers.">Scoring: R - ¼W</p>
                 </div>
+                <!-- NEW: Single-column layout for more space -->
                 <div class="space-y-6">
                     <div>
                         <label for="math" class="form-label">Mathematics (50 items)</label>
-                        <input size="8" type="number" id="math" name="math" class="form-input" required min="0" max="50" step="1" placeholder="e.g., 45">
+                        <input type="number" id="math" name="math" class="form-input" required min="0" max="50" step="1" placeholder="e.g., 45">
                     </div>
                     <div>
                         <label for="sci" class="form-label">Science (40 items)</label>
-                        <input size="8" type="number" id="sci" name="sci" class="form-input" required min="0" max="40" step="1" placeholder="e.g., 35">
+                        <input type="number" id="sci" name="sci" class="form-input" required min="0" max="40" step="1" placeholder="e.g., 35">
                     </div>
                     <div>
                         <label for="lang" class="form-label">Language (80 items)</label>
-                        <input size="8" type="number" id="lang" name="lang" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 70">
+                        <input type="number" id="lang" name="lang" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 70">
                     </div>
                     <div>
                         <label for="read" class="form-label">Reading (80 items)</label>
-                        <input size="8" type="number" id="read" name="read" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 72">
+                        <input type="number" id="read" name="read" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 72">
                     </div>
                 </div>
             </div>
@@ -115,7 +169,7 @@
 
             <!-- Submit Button -->
             <div class="text-center pt-4">
-                <button type="submit" class="btn-primary">Calculate UPG</button>
+                <button type="submit" class="btn-primary"><span>Calculate UPG </span></button>
             </div>
         </form>
 
