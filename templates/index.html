@@ -11,93 +11,104 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
         }
         .form-input {
-            @apply w-full px-4 py-2 text-gray-700 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition;
+            @apply w-full px-4 py-3 text-gray-900 bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300;
         }
         .form-label {
-            @apply block text-sm font-medium text-gray-600 mb-1;
+            @apply block text-sm font-semibold text-gray-600 mb-2;
         }
         .btn-primary {
-            @apply w-full px-4 py-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-transform transform hover:scale-105;
+            @apply w-full px-4 py-3 font-bold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl;
+        }
+        /* Hide arrows from number input */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gray-100">
 
-    <div class="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12 my-8">
+    <div class="w-full max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12 my-12">
         
         <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-extrabold text-gray-800">UPG Strategic Co-Pilot</h1>
-            <p class="text-gray-500 mt-2">Calibrated with the "Harsh Reality" Model v6.4</p>
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">UPG Caculator</h1>
+            <p class="text-gray-500 mt-2">"Harsh Reality" Model v6.5</p>
         </div>
 
         <!-- Input Form -->
-        <form action="/" method="POST">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <!-- UPCAT Scores Section -->
-                <div class="md:col-span-1">
-                    <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2">UPCAT Subtest Scores</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="math" class="form-label">Mathematics (1-100)</label>
-                            <input type="number" id="math" name="math" class="form-input" required min="0" max="100" step="0.01">
-                        </div>
-                        <div>
-                            <label for="sci" class="form-label">Science (1-100)</label>
-                            <input type="number" id="sci" name="sci" class="form-input" required min="0" max="100" step="0.01">
-                        </div>
-                        <div>
-                            <label for="lang" class="form-label">Language Proficiency (1-100)</label>
-                            <input type="number" id="lang" name="lang" class="form-input" required min="0" max="100" step="0.01">
-                        </div>
-                        <div>
-                            <label for="read" class="form-label">Reading Comprehension (1-100)</label>
-                            <input type="number" id="read" name="read" class="form-input" required min="0" max="100" step="0.01">
-                        </div>
+        <form action="/" method="POST" class="space-y-8">
+            
+            <!-- UPCAT Scores Section -->
+            <div>
+                <div class="flex justify-between items-center mb-4 border-b pb-2">
+                    <h2 class="text-xl font-bold text-gray-700">UPCAT Subtest Scores</h2>
+                    <p class="text-xs text-gray-500 italic" title="Right minus one-fourth of wrong answers.">Scoring: R - ¼W</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="math" class="form-label">Mathematics (50 items)</label>
+                        <input type="number" id="math" name="math" class="form-input" required min="0" max="50" step="1" placeholder="e.g., 45">
+                    </div>
+                    <div>
+                        <label for="sci" class="form-label">Science (40 items)</label>
+                        <input type="number" id="sci" name="sci" class="form-input" required min="0" max="40" step="1" placeholder="e.g., 35">
+                    </div>
+                    <div>
+                        <label for="lang" class="form-label">Language (80 items)</label>
+                        <input type="number" id="lang" name="lang" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 70">
+                    </div>
+                    <div>
+                        <label for="read" class="form-label">Reading (80 items)</label>
+                        <input type="number" id="read" name="read" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 72">
                     </div>
                 </div>
+            </div>
 
-                <!-- HS & Choices Section -->
-                <div class="md:col-span-1">
-                     <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2">Academics & Choices</h2>
-                     <div class="space-y-4">
-                        <div>
-                            <label for="hs" class="form-label">High School GWA (G8-11)</label>
-                            <input type="number" id="hs" name="hs" class="form-input" required min="0" max="100" step="0.01">
-                        </div>
-                        <div>
-                            <label for="hs_type" class="form-label">High School Type</label>
-                            <select id="hs_type" name="hs_type" class="form-input">
-                                <option>Private</option>
-                                <option>Public/Barangay</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="campus1" class="form-label">First Choice Campus</label>
-                            <select id="campus1" name="campus1" class="form-input">
-                                {% for campus in campus_options %}
-                                <option>{{ campus }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div>
-                            <label for="campus2" class="form-label">Second Choice Campus</label>
-                            <select id="campus2" name="campus2" class="form-input">
-                                {% for campus in campus_options %}
-                                <option {% if loop.index == 2 %}selected{% endif %}>{{ campus }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                     </div>
-                </div>
+            <!-- HS & Choices Section -->
+            <div>
+                 <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2">Academics & Choices</h2>
+                 <div class="space-y-6">
+                    <div>
+                        <label for="hs" class="form-label">High School GWA (0-100)</label>
+                        <input type="number" id="hs" name="hs" class="form-input" required min="0" max="100" step="0.01" placeholder="e.g., 92.5">
+                    </div>
+                    <div>
+                        <label for="hs_type" class="form-label">High School Type</label>
+                        <select id="hs_type" name="hs_type" class="form-input">
+                            <option>Private</option>
+                            <option>Public/Barangay</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="campus1" class="form-label">First Choice Campus</label>
+                        <select id="campus1" name="campus1" class="form-input">
+                            {% for campus in campus_options %}
+                            <option>{{ campus }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="campus2" class="form-label">Second Choice Campus</label>
+                        <select id="campus2" name="campus2" class="form-input">
+                            {% for campus in campus_options %}
+                            <option {% if loop.index == 2 %}selected{% endif %}>{{ campus }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                 </div>
+            </div>
 
-                <!-- Submit Button -->
-                <div class="md:col-span-2 mt-4">
-                    <button type="submit" class="btn-primary">Calculate UPG</button>
-                </div>
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="btn-primary">Calculate UPG</button>
             </div>
         </form>
 
@@ -112,9 +123,11 @@
                 </div>
             {% else %}
                 <div class="bg-gray-50 p-6 rounded-lg shadow-inner space-y-4">
-                    <div class="text-center">
-                        <p class="text-lg text-gray-600">Estimated UPG</p>
-                        <p class="text-5xl font-extrabold text-blue-600">{{ results.upg }}</p>
+                    <div class="flex justify-center items-center my-4">
+                        <div class="relative w-48 h-48 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex flex-col items-center justify-center text-white shadow-2xl">
+                            <p class="text-sm font-medium opacity-80 tracking-wider">EST. UPG</p>
+                            <p class="text-6xl font-extrabold tracking-tighter">{{ results.upg }}</p>
+                        </div>
                     </div>
                     <div class="text-sm text-gray-500 text-center">
                         <p>Modifiers Applied: {{ results.modifiers }}</p>
@@ -131,7 +144,7 @@
         <!-- Disclaimer -->
         <div class="text-center mt-12 text-xs text-gray-400">
             <p>DISCLAIMER: This calculator provides an ESTIMATE only and is NOT a guarantee of admission. The official UPG formula is confidential.</p>
-            <p class="mt-1">Developed for Goat (@emmzrig)</p>
+            <p class="mt-1">Developed by the Goat (@emmzrig)</p>
         </div>
 
     </div>
