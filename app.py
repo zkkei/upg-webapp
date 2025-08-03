@@ -1,6 +1,6 @@
 # UPG Strategic Co-Pilot (Web Application)
-# Flask Backend v2.0
-# Developed by Gemini for Goat (@emmzrig)
+# Flask Backend v2.1
+# Developed by the Goat (@emmzrig)
 
 from flask import Flask, render_template, request
 
@@ -15,7 +15,6 @@ CAMPUS_CUTOFFS = {
     "UP Mindanao": 2.800, "UP Open University": 2.800, "UP Tacloban": 2.800,
 }
 
-# NEW: Correct item counts for each subtest
 ITEM_COUNTS = {
     'math': 50, 'sci': 40, 'lang': 80, 'read': 80
 }
@@ -35,9 +34,7 @@ def score_to_upg_scale(normalized_score):
     non-linear, competitive model.
     """
     if normalized_score < 0: normalized_score = 0
-    # The exponent makes the model stricter.
     competitive_score = normalized_score ** COMPETITIVENESS_EXPONENT
-    # Maps the competitive score (0-1) to the UPG scale (1-5)
     return 1 + (1 - competitive_score) * 4
 
 def compute_upg(normalized_scores, hs_type):
@@ -89,18 +86,21 @@ def index():
     """
     campus_options = list(CAMPUS_CUTOFFS.keys())
     results = None
+    form_data = {} # Initialize empty dict for form data
     
     if request.method == 'POST':
         try:
+            form_data = request.form # Preserve form data on POST
+            
             # Collect raw scores from the form
             raw_scores = {
-                'math': float(request.form['math']),
-                'sci': float(request.form['sci']),
-                'lang': float(request.form['lang']),
-                'read': float(request.form['read']),
-                'hs': float(request.form['hs']),
+                'math': float(form_data['math']),
+                'sci': float(form_data['sci']),
+                'lang': float(form_data['lang']),
+                'read': float(form_data['read']),
+                'hs': float(form_data['hs']),
             }
-            hs_type = request.form['hs_type']
+            hs_type = form_data['hs_type']
             
             # Normalize scores based on item counts
             normalized_scores = {
@@ -108,11 +108,11 @@ def index():
                 'sci': raw_scores['sci'] / ITEM_COUNTS['sci'],
                 'lang': raw_scores['lang'] / ITEM_COUNTS['lang'],
                 'read': raw_scores['read'] / ITEM_COUNTS['read'],
-                'hs': raw_scores['hs'] / 100.0 # HS GWA is out of 100
+                'hs': raw_scores['hs'] / 100.0
             }
 
-            c1_choice = request.form['campus1']
-            c2_choice = request.form['campus2']
+            c1_choice = form_data['campus1']
+            c2_choice = form_data['campus2']
 
             final_upg, modifiers = compute_upg(normalized_scores, hs_type)
             outcome_text, analysis_text = determine_outcome(final_upg, c1_choice, c2_choice)
@@ -127,7 +127,7 @@ def index():
         except (ValueError, KeyError, ZeroDivisionError) as e:
             results = {'error': f"Invalid input. Please ensure all fields are filled correctly. Error: {e}"}
 
-    return render_template('index.html', campus_options=campus_options, results=results)
+    return render_template('index.html', campus_options=campus_options, results=results, form_data=form_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
