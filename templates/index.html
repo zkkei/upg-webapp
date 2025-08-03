@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPG Strategic Co-Pilot</title>
+    <title>UPG Calculator</title>
+    
+    <!-- Favicon Links -->
+    <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/png">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='logo.png') }}">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +16,10 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            /* Subtle background pattern for a more premium feel */
             background-color: #f3f4f6;
+            background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+            background-size: 20px 20px;
         }
         .form-input {
             @apply w-full px-4 py-3 text-gray-900 bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300;
@@ -20,7 +28,7 @@
             @apply block text-sm font-semibold text-gray-600 mb-2;
         }
         .btn-primary {
-            @apply w-full px-4 py-3 font-bold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl;
+            @apply inline-block px-12 py-3 font-bold text-white bg-blue-600 rounded-xl shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:brightness-110;
         }
         /* Hide arrows from number input */
         input[type=number]::-webkit-inner-spin-button,
@@ -33,14 +41,13 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <div class="w-full max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12 my-12">
+    <div class="w-full max-w-lg mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12 my-12 border-t-4 border-blue-600">
         
         <!-- Header -->
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">UPG Caculator</h1>
-            <p class="text-gray-500 mt-2">"Harsh Reality" Model v6.5</p>
+            <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">UPG Calculator</h1>
         </div>
 
         <!-- Input Form -->
@@ -52,22 +59,22 @@
                     <h2 class="text-xl font-bold text-gray-700">UPCAT Subtest Scores</h2>
                     <p class="text-xs text-gray-500 italic" title="Right minus one-fourth of wrong answers.">Scoring: R - ¼W</p>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-6">
                     <div>
                         <label for="math" class="form-label">Mathematics (50 items)</label>
-                        <input type="number" id="math" name="math" class="form-input" required min="0" max="50" step="1" placeholder="e.g., 45">
+                        <input size="8" type="number" id="math" name="math" class="form-input" required min="0" max="50" step="1" placeholder="e.g., 45">
                     </div>
                     <div>
                         <label for="sci" class="form-label">Science (40 items)</label>
-                        <input type="number" id="sci" name="sci" class="form-input" required min="0" max="40" step="1" placeholder="e.g., 35">
+                        <input size="8" type="number" id="sci" name="sci" class="form-input" required min="0" max="40" step="1" placeholder="e.g., 35">
                     </div>
                     <div>
                         <label for="lang" class="form-label">Language (80 items)</label>
-                        <input type="number" id="lang" name="lang" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 70">
+                        <input size="8" type="number" id="lang" name="lang" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 70">
                     </div>
                     <div>
                         <label for="read" class="form-label">Reading (80 items)</label>
-                        <input type="number" id="read" name="read" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 72">
+                        <input size="8" type="number" id="read" name="read" class="form-input" required min="0" max="80" step="1" placeholder="e.g., 72">
                     </div>
                 </div>
             </div>
@@ -107,7 +114,7 @@
             </div>
 
             <!-- Submit Button -->
-            <div>
+            <div class="text-center pt-4">
                 <button type="submit" class="btn-primary">Calculate UPG</button>
             </div>
         </form>
@@ -144,7 +151,7 @@
         <!-- Disclaimer -->
         <div class="text-center mt-12 text-xs text-gray-400">
             <p>DISCLAIMER: This calculator provides an ESTIMATE only and is NOT a guarantee of admission. The official UPG formula is confidential.</p>
-            <p class="mt-1">Developed by the Goat (@emmzrig)</p>
+            <p class="mt-1">Developed for Goat (@emmzrig)</p>
         </div>
 
     </div>
